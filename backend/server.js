@@ -42,7 +42,24 @@ app.get("/posts",(req,res)=>{
         }
             })
             });
-
+    
+    app.put("/posts/:id",(req,res)=>{
+    //console.log("37:", req.params.id);
+    Post.updateOne(
+        {_id:req.params.id},
+        {title:req.body.newTitle},
+        (err,updateObj)=>{
+        if (err) {
+        //console.log("ERROR: ",err);
+        res.status(400).json(err)
+        }else{
+            console.log(updateObj);
+            updateObj.modifiedCount===1
+            ? res.json("update New post Successfully")
+            : res.status(404).json ("this post is not found");
+        }
+})
+    })
 
 app.listen(5000,()=>{
     console.log("SERVER IS WORKING");
