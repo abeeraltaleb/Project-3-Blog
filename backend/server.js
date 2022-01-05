@@ -25,10 +25,24 @@ app.get("/posts",(req,res)=>{
             if(err){
                 console.log("Error :".err);
             }else{
-                res.json(data);
+                res.json("Created this post Successfully");
             }
         })
         });
+
+    app.delete("/posts/:id",(req,res)=>{
+        Post.deleteOne({_id : req.params.id},(err,deleteObj)=>{
+               
+        if (err) {
+            console.log("ERROR: ",err);
+        }else{
+            deleteObj.deletedCount===1
+            ? res.json("Deleted this post Successfully")
+            : res.status(404).json ("this post is not found")
+        }
+            })
+            });
+
 
 app.listen(5000,()=>{
     console.log("SERVER IS WORKING");
