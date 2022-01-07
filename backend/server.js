@@ -4,8 +4,10 @@ const app =express();
 
 const db=require("./db");
 const Post=require("./post");
+const User=require ('./user');
 
 app.use(express.json())
+
 console.log(Post);
 app.get("/",(req,res)=>{
     res.json("Get is working");
@@ -60,6 +62,49 @@ app.get("/posts",(req,res)=>{
         }
 })
     })
+
+
+    //USER
+app.post("/users/register",(req,res)=>{
+    User.create(req.body,(err,newUser)=>{
+        if(err){
+           //console.log("ERRO: ",err);
+            res.status(400).json({message:"This email already taken"})
+
+        }else{
+            res.status(201).json({ message: "Create New User Successfully" });
+        }
+    });
+});
+
+app.post("/users/login", (req, res) => {
+    User.find({ email: req.body.email }, (err, arrUserFound) => {
+        if (err) {
+        console.log("ERROR: ", err);
+        } else {
+        // console.log(arrUserFound);
+        if (arrUserFound.length === 1) {
+          // we found the user
+            if (req.body.password === arrUserFound[0].password) {
+            // password correct
+            res.status(200).json({
+                message: "Login Successfully",
+                username: arrUserFound[0].username,
+            });
+            } else {
+            // password incorrect
+            res.status(400).json({
+                message: "Wrong Password",
+            });
+            }
+        } else {
+            res.status(404).json({
+            message: "The email entered is not registered",
+            });
+        }
+        }
+    });
+  });
 
 app.listen(5000,()=>{
     console.log("SERVER IS WORKING");
