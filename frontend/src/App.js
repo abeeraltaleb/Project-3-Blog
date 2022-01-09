@@ -43,6 +43,22 @@ const getData=()=>{
 
 
 
+const deletePost = (id) => {
+  axios
+  .delete(`http://localhost:5000/posts/${id}`)
+    .then((response) => {
+      // console.log('RESPONSE: ', response);
+      console.log("DATA: ", response.data);
+      getData();
+      // change react hooks state using spread operator
+    })
+    .catch((err) => {
+      console.log("ERR: ", err);
+    });
+};
+
+
+
 
 
  const mapOverPosts=posts.map
@@ -50,6 +66,7 @@ const getData=()=>{
  <Post
   key={i}
   posts={postObj}
+  deletePost={deletePost}
 
   />);
 
