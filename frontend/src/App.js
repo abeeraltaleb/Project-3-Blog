@@ -3,6 +3,7 @@ import "./App.css";
 import axios from 'axios'
 import Post from './components/Post';
 import Add from './components/Add';
+import Register from './components/Register';
 export default function App() {
 const [posts, setPosts] = useState([]);
   
@@ -57,6 +58,20 @@ const deletePost = (id) => {
     });
 };
 
+const editPost = (id ,newTitle) => {
+  axios
+  .put(`http://localhost:5000/posts/${id}/${newTitle}`)
+    .then((response) => {
+      // console.log('RESPONSE: ', response);
+      console.log("DATA: ", response.data);
+      getData();
+      // change react hooks state using spread operator
+    })
+    .catch((err) => {
+      console.log("ERR: ", err);
+    });
+};
+
 
 
 
@@ -67,14 +82,16 @@ const deletePost = (id) => {
   key={i}
   posts={postObj}
   deletePost={deletePost}
+  editPost={editPost}
 
   />);
 
  
  
   return (
-    <div className='App'>
-      <p>app</p>
+    <div className='container App'>
+      <Register/>
+      <p className='h1'>Blog</p>
       {/* <button onClick={getData}>GET Posts</button> */}
       {mapOverPosts}
      
