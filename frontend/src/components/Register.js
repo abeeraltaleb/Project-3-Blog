@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 
@@ -97,9 +98,9 @@ export default function Register() {
     />
 
 
-    {/* <Link to="/login" className="btn btn-link">
+    <Link to="/login" className="btn btn-link">
     Have An Account?
-    </Link> */}
+    </Link>
   </div>
 </form>
 </div>

@@ -1,11 +1,15 @@
 import React ,{useState,useEffect} from 'react'
+import { Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import axios from 'axios'
 import Post from './components/Post';
 import Add from './components/Add';
 import Register from './components/Register';
+import Login from './components/Login';
 export default function App() {
 const [posts, setPosts] = useState([]);
+const [isLoggedIn, setIsLoggedIn] = useState(false);
+const [username, setUsername] = useState("");
   
 useEffect(()=>{
 getData()
@@ -90,12 +94,20 @@ const editPost = (id ,newTitle) => {
  
   return (
     <div className='container App'>
-      <Register/>
+      
       <p className='h1'>Blog</p>
       {/* <button onClick={getData}>GET Posts</button> */}
       {mapOverPosts}
      
-      <Add createFunc={postNewBlog} />
+      
+
+    <Routes>
+    <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />} />
+    <Route path="/register" element={<Register />} />
+    <Route path="/add" element={<Add createFunc={postNewBlog} />}/>
+    </Routes>
+     
+
     </div>
   )
 }
