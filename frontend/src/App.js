@@ -90,30 +90,35 @@ const editPost = (id ,newTitle) => {
 
   />);
 
- 
- 
   return (
-    <div className='container App'>
-      
-     
-     
-     
+  <div className='container App'>   
+  <nav className="navbar navbar-expand-lg navbar-light bg-light">
+  <div className="container-fluid">
+    <a className="navbar-brand" href="#">Blog</a>
+    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span className="navbar-toggler-icon"></span>
+    </button>
+    <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div className="navbar-nav">
+        <Link className="nav-link active" to="/">Home</Link>
+        <Link to="/register" className="nav-link">Register</Link>
+        <Link to ="login" className="nav-link ">Login</Link>
+        <Link to ="/add" className="nav-link" href="#">Add</Link>
+      </div>
+    </div>
+  </div>
+</nav>
 
     <Routes>
     <Route path="/" element={
-<div className='Home'>
-<p className='h1'>Blog</p>
-{mapOverPosts}
-</div>
-
- 
+    <div className='Home'>
+    {mapOverPosts}
+    </div>
     } />
     <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />} />
     <Route path="/register" element={<Register />} />
     <Route path="/add" element={<Add createFunc={postNewBlog} />}/>
     </Routes>
-     
-
     </div>
   )
 }
