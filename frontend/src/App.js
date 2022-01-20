@@ -95,13 +95,19 @@ const editPost = (id ,newTitle) => {
   return (
     <div className='container App'>
       
-      <p className='h1'>Blog</p>
-      {/* <button onClick={getData}>GET Posts</button> */}
-      {mapOverPosts}
      
-      
+     
+     
 
     <Routes>
+    <Route path="/" element={
+<div className='Home'>
+<p className='h1'>Blog</p>
+{mapOverPosts}
+</div>
+
+ 
+    } />
     <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />} />
     <Route path="/register" element={<Register />} />
     <Route path="/add" element={<Add createFunc={postNewBlog} />}/>
