@@ -24,6 +24,18 @@ app.get("/posts",(req,res)=>{
         }
     })
     });
+
+    app.get("/article/:id",(req,res)=>{
+        Post.findById({_id:req.params.id},(err,data)=>{
+            if(err){
+                console.log("Error :".err);
+            }else{
+                res.json(data);
+            }
+        })
+        });
+
+
     app.post("/posts",(req,res)=>{
         Post.create(req.body,(err,data)=>{
             if(err){
@@ -47,24 +59,60 @@ app.get("/posts",(req,res)=>{
             })
             });
     
-    app.put("/posts/:id",(req,res)=>{
-    //console.log("37:", req.params.id);
-    Post.updateOne(
-        {_id:req.params.id},
-        {title:req.body.newTitle},
-        (err,updateObj)=>{
-        if (err) {
-        //console.log("ERROR: ",err);
-        res.status(400).json(err)
-        }else{
-            console.log(updateObj);
-            updateObj.modifiedCount===1
-            ? res.json("update New post Successfully")
-            : res.status(404).json ("this post is not found");
-        }
-})
-    })
 
+    // app.put("/posts/:id",(req,res)=>{
+    //     //console.log("37:", req.params.id);
+    //     Post.updateMany(
+    //         {_id:req.params.id},
+    //         {title:req.body.newTitle},
+    //         {content:req.body.newContent},
+    //         (err,updateObj)=>{
+    //         if (err) {
+    //         //console.log("ERROR: ",err);
+    //         res.status(400).json(err)
+    //         }else{
+    //             console.log(updateObj);
+    //             updateObj.modifiedCount===1
+    //             ? res.json("update New post Successfully")
+    //             : res.status(404).json ("this post is not found");
+    //         }
+    // })
+    //     })
+
+    //  app.put("/update/:id",(req,res)=>{
+    //     //console.log("37:", req.params.id);
+    //     Post.findById(req.params.id),{
+        
+    //         {title:req.body.newTitle},
+    //         {content:req.body.newContent}}
+    //         (err,updateObj)=>{
+    //         if (err) {
+    //         //console.log("ERROR: ",err);
+    //         res.status(400).json(err)
+    //         }else{
+    //             console.log(updateObj);
+    //             updateObj.modifiedCount===1
+    //             ? res.json("update New post Successfully")
+    //             : res.status(404).json ("this post is not found");
+    //         }
+    // })
+    //     })
+
+
+    // app.put("/update/:id",(req,res)=>{
+    //     //console.log("37:", req.params.id);
+    //     Post.findById(req.params.id)
+    //     .then(article=>{
+    //         article.title=req.body.title;
+    //         article.content=req.body.content;
+        
+    //       Post
+    //       .Save()
+    //       .then(()=>("the post is updated successfuly"))
+    //       .catch(err=>res.status(400).json("ERROR:",err))
+    //         })
+    //         .catch(err=>res.status(400).json("ERROR:",err))
+    //     })  
 
     //USER
 app.post("/users/register",(req,res)=>{

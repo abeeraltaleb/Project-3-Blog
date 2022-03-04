@@ -12,7 +12,7 @@ props.createFunc({title:  newTitle ,content :newContent});
 };
 
     return (
-        <div className='Add'>
+   <div className='Add container'>
            
   <div className="form-group">
     <label htmlFor="exampleFormControlInput1">Title</label>

@@ -1,7 +1,10 @@
 .App{
-   border:1px red solid;
+background-color: #EEFBFB;
 }
 
 .Post{
-    border:1px blue;
+    
+}
+.delbtn{
+    margin-right: 10px;
 }

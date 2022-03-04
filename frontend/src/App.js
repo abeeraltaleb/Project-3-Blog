@@ -6,10 +6,15 @@ import Post from './components/Post';
 import Add from './components/Add';
 import Register from './components/Register';
 import Login from './components/Login';
+import Article from './components/Article';
+
+// import EditPost from './components/EditPost';
 export default function App() {
 const [posts, setPosts] = useState([]);
 const [isLoggedIn, setIsLoggedIn] = useState(false);
 const [username, setUsername] = useState("");
+
+
   
 useEffect(()=>{
 getData()
@@ -19,7 +24,7 @@ const getData=()=>{
    axios
    .get(`http://localhost:5000/posts`)
    .then((response)=>{
-   console.log("DATA : ",response);
+  //  console.log("DATA : ",response);
   setPosts(response.data);
   })
    .catch((err)=>{
@@ -48,6 +53,10 @@ const getData=()=>{
 
 
 
+
+
+
+
 const deletePost = (id) => {
   axios
   .delete(`http://localhost:5000/posts/${id}`)
@@ -62,9 +71,25 @@ const deletePost = (id) => {
     });
 };
 
-const editPost = (id ,newTitle) => {
+// const getPost = (id) => {
+//   axios
+//   .get(`http://localhost:5000/posts/${id}`)
+//     .then((response) => {
+//       // console.log('RESPONSE: ', response);
+//       console.log("DATA: ", response.data);
+//       getData();
+//       // change react hooks state using spread operator
+//     })
+//     .catch((err) => {
+//       console.log("ERR: ", err);
+//     });
+// };
+
+
+
+const editPost = (id) => {
   axios
-  .put(`http://localhost:5000/posts/${id}/${newTitle}`)
+  .put(`http://localhost:5000/posts/${id}`)
     .then((response) => {
       // console.log('RESPONSE: ', response);
       console.log("DATA: ", response.data);
@@ -80,45 +105,68 @@ const editPost = (id ,newTitle) => {
 
 
 
- const mapOverPosts=posts.map
-((postObj,i)=>
+
+
+const mapOverPosts=posts.map((postObj,i)=>(
  <Post
   key={i}
   posts={postObj}
   deletePost={deletePost}
   editPost={editPost}
-
-  />);
+  />
+  ));
 
   return (
-  <div className='container App'>   
-  <nav className="navbar navbar-expand-lg navbar-light bg-light">
-  <div className="container-fluid">
+  <div className=' App'>   
+  <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div className="container">
     <a className="navbar-brand" href="#">Blog</a>
-    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navmenu"
+          >
       <span className="navbar-toggler-icon"></span>
     </button>
-    <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div className="navbar-nav">
+    <div className="collapse navbar-collapse" id="navmenu">
+      <ul className="navbar-nav">
+        <li className='nav-item'>
         <Link className="nav-link active" to="/">Home</Link>
+        </li>
+        <li className='nav-item'>
         <Link to="/register" className="nav-link">Register</Link>
+        </li>
+        <li className='nav-item'>
         <Link to ="login" className="nav-link ">Login</Link>
-        <Link to ="/add" className="nav-link" href="#">Add</Link>
-      </div>
+        </li>
+        <li className='nav-item'>  
+      <Link to ="/add" className="nav-link" href="#">Add</Link>
+      </li>
+      </ul>
     </div>
   </div>
 </nav>
+<br/>
 
-    <Routes>
+<Routes>
     <Route path="/" element={
     <div className='Home'>
-    {mapOverPosts}
+      {mapOverPosts}
     </div>
     } />
     <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />} />
     <Route path="/register" element={<Register />} />
     <Route path="/add" element={<Add createFunc={postNewBlog} />}/>
+    <Route  path="/article/:id"  element={<Article  />}/>
     </Routes>
+    <footer className="text-center text-white py-5 mt-5 bg-dark">
+      <span>All rights reserved to Abeer AL-Talib 2022</span>
+      
+      </footer>
+    
     </div>
+
+ 
   )
 }
