@@ -101,20 +101,51 @@ app.get("/posts",(req,res)=>{
 
     // app.put("/update/:id",(req,res)=>{
     //     //console.log("37:", req.params.id);
-    //     Post.findById(req.params.id)
-    //     .then(article=>{
-    //         article.title=req.body.title;
-    //         article.content=req.body.content;
-        
-    //       Post
-    //       .Save()
-    //       .then(()=>("the post is updated successfuly"))
-    //       .catch(err=>res.status(400).json("ERROR:",err))
-    //         })
-    //         .catch(err=>res.status(400).json("ERROR:",err))
-    //     })  
+    //     Post.findById(req.params.id),{
+    //         title=req.body.title,
+    //         content=req.body.content},
+    //       (err,updateObj)=>{
 
-    //USER
+    //         if (err) {
+    //           res.status(400).json(err)
+    //                     }else{
+    //                         console.log(updateObj);
+    //                         updateObj.modifiedCount===1
+    //                         ? res.json("update New post Successfully")
+    //                         : res.status(404).json ("this post is not found");
+    //                     }
+    //             }
+
+    // app.put("/posts/:id",(req,res)=>{
+    //     Post.updateOne(
+    //         {id:req.params.id},
+    //         {title:req.body.title},
+    //         (err,updateObj)=>{
+    //         if (err) {
+    //         res.status(400).json(err)
+    //         }else{
+    //             console.log(updateObj);
+    //             updateObj.modifiedCount===1
+    //             ? res.json("update New post Successfully")
+    //             : res.status(404).json ("this post is not found");
+    //         }
+    // })
+    //     })
+
+    app.put("/posts/:id",(req,res)=>{
+        Post.findById(req.params.id)
+        .then(article => {
+            article.title=req.body.title;
+            article.content=req.body.content;
+            article
+            .save()
+            .then(()=> res.json("this post is updated"))
+            .catch(err=>res.status(400).json(`Erro:${err}`))
+
+        })
+        .catch(err=>res.status(400).json(`Error:${err}`))
+    })
+
 app.post("/users/register",(req,res)=>{
     User.create(req.body,(err,newUser)=>{
         if(err){

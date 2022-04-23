@@ -7,6 +7,7 @@ import Add from './components/Add';
 import Register from './components/Register';
 import Login from './components/Login';
 import Article from './components/Article';
+import EditPost from './components/EditPost';
 
 // import EditPost from './components/EditPost';
 export default function App() {
@@ -87,7 +88,7 @@ const deletePost = (id) => {
 
 
 
-const editPost = (id) => {
+const editArticle = (id) => {
   axios
   .put(`http://localhost:5000/posts/${id}`)
     .then((response) => {
@@ -112,7 +113,36 @@ const mapOverPosts=posts.map((postObj,i)=>(
   key={i}
   posts={postObj}
   deletePost={deletePost}
-  editPost={editPost}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   />
   ));
 
@@ -155,10 +185,13 @@ const mapOverPosts=posts.map((postObj,i)=>(
       {mapOverPosts}
     </div>
     } />
-    <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />} />
-    <Route path="/register" element={<Register />} />
-    <Route path="/add" element={<Add createFunc={postNewBlog} />}/>
+    <Route  path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />} />
+    <Route  path="/register" element={<Register />} />
+    <Route  path="/add" element={<Add createFunc={postNewBlog} />}/>
     <Route  path="/article/:id"  element={<Article  />}/>
+    <Route  path="/edit/:id"  element={<EditPost   />}/>
+
+
     </Routes>
     <footer className="text-center text-white py-5 mt-5 bg-dark">
       <span>All rights reserved to Abeer AL-Talib 2022</span>

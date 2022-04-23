@@ -24,12 +24,12 @@ export default function Post(props) {
                 className="btn btn-outline-danger"
              >Delete</button>
 
-            <button
-                onClick={() => {
-                  props.editPost(_id);
-                }}
-                className="btn btn-outline-info"
-             >Edit</button>
+
+
+<Link to={`/edit/${_id}`}  >
+      <a className='btn btn-outline-info'>Edit</a>
+      </Link> 
+            
 
 
   </div>
